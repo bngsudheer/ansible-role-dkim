@@ -45,7 +45,7 @@
     - restart opendkim
 
 - name: Generate signing key
-  command: /usr/sbin/opendkim-genkey -s {{ dkim_selector }} -d {{ dkim_domains[0] }} -D /etc/opendkim/keys
+  command: opendkim-genkey -s {{ dkim_selector }} -d {{ dkim_domains[0] }} -D /etc/opendkim/keys
   args:
     creates: "/etc/opendkim/keys/{{ dkim_selector }}.private"
     warn: false
