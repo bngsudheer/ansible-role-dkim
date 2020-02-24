@@ -10,7 +10,7 @@ matrix:
 install:
   # - pip install molecule #workaround for Molecule/Ansible 2.8 issue
   - pip install docker
-  - pip install molecule==2.19 ansible==2.7.11
+  - pip install molecule==3.0.1 ansible==2.9.5
 
 branches:
   only:

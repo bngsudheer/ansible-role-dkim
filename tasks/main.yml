@@ -45,7 +45,7 @@
   notify:
     - restart opendkim
 
-- name: Generate signing key
+- name: Generate default signing key
   command: "{{ opendkim_opendkim_genkey_path }} -s {{ dkim_selector }} -d {{ dkim_domains[0] }} -D /etc/opendkim/keys"
   args:
     creates: "/etc/opendkim/keys/{{ dkim_selector }}.private"
@@ -53,11 +53,30 @@
   notify:
     - restart opendkim
 
-- name: Opendkim signing key file ownership
+- name: Opendkim default signing key file ownership
   file:
     path: "/etc/opendkim/keys/{{ dkim_selector }}.private"
     owner: opendkim
     group: opendkim
+  loop: "{{ dkim_domains }}"
+
+- name: Generate individual signing key
+  command: "{{ opendkim_opendkim_genkey_path }} -s {{ item }} -d {{ item }} -D /etc/opendkim/keys"
+  args:
+    creates: "/etc/opendkim/keys/{{ item }}.private"
+    warn: false
+  loop: "{{ dkim_domains }}"
+  notify:
+    - restart opendkim
+  when: opendkim_one_key_per_domain == true
+
+- name: Opendkim signing individual key file ownership
+  file:
+    path: "/etc/opendkim/keys/{{ item }}.private"
+    owner: opendkim
+    group: opendkim
+  loop: "{{ dkim_domains }}"
+  when: opendkim_one_key_per_domain == true
 
 - name: Start and enable Opendkim
   systemd:

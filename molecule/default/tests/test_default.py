@@ -19,5 +19,5 @@ def test_opendkim_is_installed(host):
     assert opendkim.is_installed
 
 
-def test_default_key_exists(host):
-    host.file("/etc/opendkim/keys/default.txt").exists
+#def test_default_key_exists(host):
+#   host.file("/etc/opendkim/keys/default.txt").exists

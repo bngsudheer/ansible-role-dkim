@@ -1,4 +1,9 @@
 ---
+- name: Install Epel Repository
+  yum:
+    name:
+      - epel-release
+
 - name: Install Opendkim packages
   yum:
     name:

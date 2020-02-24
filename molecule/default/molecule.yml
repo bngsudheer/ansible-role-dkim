@@ -6,8 +6,8 @@ dependency:
     ignore-errors: false
 driver:
   name: docker
-lint:
-  name: yamllint
+lint: |
+   yamllint .
 platforms:
   - name: instance
     image: ${OPENDKIM_MOLECULE_DISTRO:-centos:7}

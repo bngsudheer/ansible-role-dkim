@@ -1,3 +1,4 @@
 ---
 dkim_selector: default
 opendkim_opendkim_genkey_path: /usr/sbin/opendkim-genkey
+opendkim_one_key_per_domain: false
